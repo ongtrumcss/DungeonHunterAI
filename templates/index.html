@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Pathfinding Game</title>
+    <!-- Pixel font for game title -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- VIEW 1: MÀN HÌNH CHÍNH (MAIN MENU) -->
+    <div id="view-menu" class="game-view active">
+        <div class="menu-box">
+            <h1 class="game-title">DUNGEON HUNTER AI</h1>
+            <p class="game-subtitle">The Pixel Pathfinding Game</p>
+            
+            <div class="menu-buttons">
+                <button class="btn-menu" onclick="showView('view-story')">📖 CỐT TRUYỆN (Kịch Bản)</button>
+                <button class="btn-menu" onclick="showView('view-theory')">📜 BÍ TỊCH AI (Định Nghĩa)</button>
+                <button class="btn-primary" onclick="showView('view-level-select')" style="margin: 15px 0;">▶ BẮT ĐẦU CHƠI (Mô Phỏng)</button>
+                <button class="btn-menu" onclick="showView('view-realworld')">🌍 THỰC CHIẾN (Ví Dụ)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW STORY (Kịch Bản) -->
+    <div id="view-story" class="game-view">
+        <div class="menu-box" style="max-width: 900px; text-align: left;">
+            <h2 class="menu-title" style="text-align:center;">📖 CUỐN THƯ CỐT TRUYỆN</h2>
+            <p style="color: #fb923c; font-weight:bold; font-size: 20px; margin-bottom:10px;">🔍 Lệnh 1: Tuần Tra Lãnh Thổ (DFS - Chiều Sâu)</p>
+            <p style="color:#cbd5e1; margin-bottom: 25px; font-size:16px; line-height: 1.6;">Vào lúc hầm ngục yên tĩnh, Quái thú chỉ bước đi thẳng mãi vào lẩn khuất các ngách tối thăm thẳm để dò xét. Chúng đi sâu đến mức chạm tường mới chịu lùi lại và rẽ nhánh khác. Hành động đi theo chiều sâu vô tận này tuân thủ hoàn toàn luật lệ của thuật toán DFS!</p>
+            
+            <p style="color: #ef4444; font-weight:bold; font-size: 20px; margin-bottom:10px;">🩸 Lệnh 2: Truy Sát Sóng Âm (BFS - Chiều Rộng)</p>
+            <p style="color:#cbd5e1; margin-bottom: 30px; font-size:16px; line-height: 1.6;">"RẮC!" Kẻ trộm vô tình đạp trúng cành củi khô báo động. Quái thú lập tức chuyển sang chế độ Sinh Tồn. Cảm biến Sóng âm thanh bộc phát lan truyền tản đều ra 4 phương 8 hướng. Não bộ NPC sử dụng thuật toán lan rộng BFS, quét từng lớp một để tự động khoanh vùng vạch ra con đường ngắn nhất áp sát mục tiêu!</p>
+            
+            <div style="text-align: center;"><button class="btn-secondary" onclick="showView('view-menu')">🔙 Trở Về Menu</button></div>
+        </div>
+    </div>
+
+    <!-- VIEW THEORY (Định Nghĩa Bảng Đen) -->
+    <div id="view-theory" class="game-view">
+        <div class="menu-box" style="max-width: 950px;">
+            <h2 class="menu-title" style="color: #fbbf24;">📜 5 CẢNH GIỚI TRÍ TUỆ NHÂN TẠO</h2>
+            <div style="text-align: left; color: #cbd5e1; font-size: 18px; line-height: 1.8;">
+                <p style="margin-bottom: 10px;">Theo sách cổ thuật toán, vạn vật AI được chia làm 4 trường phái cơ bản:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;">1. Suy nghĩ thông minh như <b>người</b></div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;">2. Suy nghĩ một cách <b>hợp lý</b></div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;">3. Hành động thông minh như <b>người</b></div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px;">4. Hành động một cách <b>hợp lý</b></div>
+                </div>
+                <div style="background: rgba(220, 38, 38, 0.2); border-left: 5px solid #ef4444; padding: 20px; border-radius: 5px; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);">
+                    <h3 style="color: #ef4444; font-size: 26px; font-weight:900;">Cảnh giới tối thượng (5): TÁC TỬ (AGENT)</h3>
+                    <p style="margin-top: 10px;">Phát triển từ nhóm (4) - Một Tác Tử thông minh là thực thể có khả năng cảm nhận môi trường (Hầm ngục), đánh giá hoàn cảnh (Yên tĩnh hay Cảnh báo), cảm nhận không gian và đưa ra các <b>hành động hợp lý nhất</b> để hoàn thành công việc hiệu suất cao nhất!</p>
+                </div>
+            </div>
+            <button class="btn-secondary" onclick="showView('view-menu')" style="margin-top: 30px;">🔙 Trở Về Menu</button>
+        </div>
+    </div>
+
+    <!-- VIEW REALWORLD (Ví dụ) -->
+    <div id="view-realworld" class="game-view">
+        <div class="menu-box" style="max-width: 900px;">
+            <h2 class="menu-title" style="color: #34d399;">🌍 VÍ DỤ THỰC CHIẾN</h2>
+            <div style="display: flex; gap: 20px; text-align:left;">
+                <div style="flex:1; background: rgba(0,0,0,0.5); padding: 25px; border-radius:10px; border: 1px solid #10b981;">
+                    <h3 style="color: #10b981; margin-bottom:15px; font-size:22px;">👾 Game AI & Quái Vật</h3>
+                    <p style="color:#cbd5e1; font-size:16px;">Pacman, Alien: Isolation, hay Boss trong Elden Ring. Mọi con quái tự động đều là một Tác Tử Agent. Nó tự định tuyến vị trí người chơi và bao vây ép góc một cách "hợp lý" đầy đáng sợ!</p>
+                </div>
+                <div style="flex:1; background: rgba(0,0,0,0.5); padding: 25px; border-radius:10px; border: 1px solid #3b82f6;">
+                    <h3 style="color: #3b82f6; margin-bottom:15px; font-size:22px;">🛸 Robot Hút Bụi Kỹ Thuật Số</h3>
+                    <p style="color:#cbd5e1; font-size:16px;">Lau nhà ở chân tivi sao cho mượt rẽ nhất cũng cần AI tìm đường. Robot hút bụi sử dụng BFS cải tiến (A*) để luồn lách né tránh chướng ngại vật cực kỳ tự chủ và thông minh!</p>
+                </div>
+            </div>
+            <button class="btn-secondary" onclick="showView('view-menu')" style="margin-top: 30px;">🔙 Trở Về Menu</button>
+        </div>
+    </div>
+
+    <!-- VIEW 2: CHỌN MÀN CHƠI (LEVEL SELECT) -->
+    <div id="view-level-select" class="game-view">
+        <div class="menu-box" style="padding: 40px 60px;">
+            <h2 class="menu-title">CHỌN MÀN CHƠI</h2>
+            <div class="level-grid">
+                <button class="btn-level" onclick="startGame(0)">Màn 1<br><span>Cửa Đi Khởi Đầu</span></button>
+                <button class="btn-level" style="border-color:#3b82f6; box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.5);" onclick="startGame(5)">✨ Chế Độ Tự Do<br><span>Sandbox Sáng Tạo</span></button>
+                <button class="btn-level" onclick="startGame(1)">Màn 2<br><span>Mê Cung Vô Tận</span></button>
+                <button class="btn-level" onclick="startGame(2)">Màn 3<br><span>Bãi Đá Chông Nhọn</span></button>
+                <button class="btn-level" onclick="startGame(3)">Màn 4<br><span>Pháo Đài Giam Cầm</span></button>
+                <button class="btn-level boss-level" onclick="startGame(4)">Màn 5<br><span>💥 Lãnh Địa Boss</span></button>
+            </div>
+            <button class="btn-secondary" onclick="showView('view-menu')" style="margin-top: 30px;">🔙 Quay Lại Menu</button>
+        </div>
+    </div>
+
+    <!-- VIEW 3: GIAO DIỆN CHƠI / MÔ PHỎNG -->
+    <div id="view-simulation" class="game-view">
+        <div class="app-simulation">
+            <aside class="glass-panel" style="width: 320px; box-shadow: none;">
+                <div class="header" style="margin-bottom: 25px; text-align:center;">
+                    <h2 id="current-level-title" style="font-size: 22px; color:#f8fafc; font-weight:800; text-transform: uppercase;">Màn Chơi</h2>
+                </div>
+                
+                <div class="legend" style="padding: 15px; background: rgba(0,0,0,0.5); border-radius: 8px; margin-bottom: 25px;">
+                    <div class="legend-item"><div class="node legend-node" style="width:20px;height:20px; background-image:url('/images/normal_monster_1775647088854.png'); background-size:cover; border:none;"></div> NPC (Quái vật)</div>
+                    <div class="legend-item"><div class="node legend-node" style="width:20px;height:20px; background-image:url('/images/hero_player_1775647055824.png'); background-size:cover; border:none;"></div> Người chơi Hero</div>
+                    <div class="legend-item"><div class="node legend-node" style="width:20px;height:20px; background-image:url('/images/dungeon_wall_1775647072622.png'); background-size:cover; border:none;"></div> Tường Dung nham</div>
+                </div>
+
+                <div class="controls" style="flex: 0 0 auto;">
+                    <div class="npc-selector" style="margin-bottom: 20px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px;">
+                        <h3 style="color:#fbbf24; font-size:14px; margin-bottom:10px;">👤 Thay Đổi Hình Dạng NPC:</h3>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn-outline" onclick="changeNPC('level-normal')" style="flex:1; font-size:13px; padding:8px;">☠️ Quái Thường</button>
+                            <button class="btn-outline" onclick="changeNPC('level-elite')" style="flex:1; font-size:13px; padding:8px; color:#f43f5e; border-color:#9f1239;">🥷 Tinh Anh</button>
+                            <button class="btn-outline" onclick="changeNPC('level-boss')" style="flex:1; font-size:13px; padding:8px; color:#be123c; border-color:#881337;">👹 Boss</button>
+                        </div>
+                    </div>
+
+                    <div class="situation">
+                        <button class="btn btn-dfs" id="btn-dfs" style="font-size:15px; padding: 15px; background:linear-gradient(135deg, #c2410c, #9a3412);">🔍 Não DFS (Tuần Tra Nhanh)</button>
+                    </div>
+                    
+                    <div class="situation" style="margin-top: 15px;">
+                        <button class="btn btn-bfs" id="btn-bfs" style="font-size:15px; padding: 15px; background:linear-gradient(135deg, #e11d48, #be123c);">🩸 Não BFS (Rượt Đuổi)</button>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-outline" id="btn-clear-path" style="padding: 12px;">✖ Xóa Vết AI (Giữ tường)</button>
+                    <button class="btn btn-outline" style="padding: 12px; border-color:#fbbf24; color:#fbbf24;" onclick="showView('view-menu')">🔙 Thoát Ra Chọn Màn</button>
+                    <p style="font-size:12px; color:#64748b; margin-top:10px;">* Gợi ý: Tại chế độ Sandbox, dùng chuột Kéo Thả ô trống để Xây Tường!</p>
+                    <p style="font-size:13px; color:#f59e0b; margin-top:15px; cursor: pointer; text-decoration: underline; text-align: center;" onclick="showTrollHints()">📜 Đọc bia đá cổ (Lời nguyền hướng dẫn)</p>
+                </div>
+            </aside>
+
+            <div class="board-container" style="position: relative;">
+                <div class="grid" id="grid"></div>
+                
+                <!-- Bảng Thống Kê -->
+                <div class="metrics-dashboard" id="metrics-dashboard">
+                    <div class="metrics-title">📊 KẾT QUẢ TÁC TỬ</div>
+                    <div class="metric-item"><span class="lbl">Thuật toán:</span><span class="val" id="met-algo">-</span></div>
+                    <div class="metric-item"><span class="lbl">Thời gian AI xử lý:</span><span class="val" id="met-time">- ms</span></div>
+                    <div class="metric-item"><span class="lbl">Số Ô quét (Steps):</span><span class="val" id="met-steps">-</span></div>
+                    <div class="metric-item"><span class="lbl">Độ dài lộ trình (Path):</span><span class="val" id="met-path">-</span></div>
+                </div>
+                
+                <!-- RPG DIALOGUE OVERLAY -->
+                <div id="dialogue-container" class="dialogue-container hidden">
+                    <div class="dialogue-avatar" id="dialogue-avatar"></div>
+                    <div class="dialogue-content">
+                        <h4 id="dialogue-name">Hiệp Sĩ Quả Cảm</h4>
+                        <p id="dialogue-text">Ôi không... Mình lỡ kích hoạt bẫy rồi!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KẾT LIỄU OVERLAY -->
+    <div id="kill-overlay" class="kill-overlay">FATAL BLOW!!!</div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
